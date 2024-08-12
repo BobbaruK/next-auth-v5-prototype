@@ -13,8 +13,11 @@ RUN \
   else echo "Warning: Lockfile not found. It is recommended to commit lockfiles to version control." && yarn install; \
   fi
 
+COPY prisma ./prisma
 COPY public ./public
 COPY src ./src
+COPY .eslintrc.json .
+COPY .prettierrc .
 COPY components.json .
 COPY next.config.mjs .
 COPY postcss.config.mjs .
@@ -27,6 +30,20 @@ ARG TEST_VAR
 ENV TEST_VAR=${TEST_VAR}
 ARG SECRET_VAR
 ENV SECRET_VAR=${SECRET_VAR}
+ARG DB_USER
+ARG DB_USER=${DB_USER}
+ARG DB_PASSWORD
+ARG DB_PASSWORD=${DB_PASSWORD}
+ARG DB_HOST
+ARG DB_HOST=${DB_HOST}
+ARG DB_PORT
+ARG DB_PORT=${DB_PORT}
+ARG DB_NAME
+ARG DB_NAME=${DB_NAME}
+ARG DATABASE_URL
+ARG DATABASE_URL=${DATABASE_URL}
+ARG NEXT_PUBLIC_DEFAULT_REGISTER_PASSWORD
+ARG NEXT_PUBLIC_DEFAULT_REGISTER_PASSWORD=${NEXT_PUBLIC_DEFAULT_REGISTER_PASSWORD}
 
 # Next.js collects completely anonymous telemetry data about general usage. Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line to disable telemetry at build time
@@ -41,6 +58,8 @@ RUN \
   elif [ -f pnpm-lock.yaml ]; then pnpm build; \
   else npm run build; \
   fi
+
+RUN npx prisma generate
 
 # Start Next.js based on the preferred package manager
 CMD \
