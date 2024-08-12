@@ -1,10 +1,10 @@
 import { z } from "zod";
 import {
-  maxDescription,
-  maxPassword,
-  maxUsername,
-  minPassword,
-  minUsername,
+  MAX_DESCRIPTION,
+  MAX_PASSWORD,
+  MAX_USERNAME,
+  MIN_PASSWORD,
+  MIN_USERNAME,
 } from "./constants";
 
 export const LoginSchema = z.object({
@@ -20,19 +20,19 @@ export const addUserformSchema = z.object({
   }),
   username: z
     .string()
-    .min(minUsername, {
-      message: `Username must be ${minUsername} or more characters long`,
+    .min(MIN_USERNAME, {
+      message: `Username must be ${MIN_USERNAME} or more characters long`,
     })
-    .max(maxUsername, {
-      message: `Username must be ${maxUsername} or fewer characters long`,
+    .max(MAX_USERNAME, {
+      message: `Username must be ${MAX_USERNAME} or fewer characters long`,
     }),
   password: z
     .string()
-    .min(minPassword, {
-      message: `Password must be ${minPassword} or more characters long`,
+    .min(MIN_PASSWORD, {
+      message: `Password must be ${MIN_PASSWORD} or more characters long`,
     })
-    .max(maxPassword, {
-      message: `Password must be ${maxPassword} or fewer characters long`,
+    .max(MAX_PASSWORD, {
+      message: `Password must be ${MAX_PASSWORD} or fewer characters long`,
     })
     .superRefine((password, ctx) => {
       const containsUppercase = (ch: string) => /[A-Z]/.test(ch);
@@ -74,11 +74,11 @@ export const addUserformSchema = z.object({
 export const addTopicFormSchema = z.object({
   name: z
     .string()
-    .min(minUsername, {
-      message: `Name must be ${minUsername} or more characters long`,
+    .min(MIN_USERNAME, {
+      message: `Name must be ${MIN_USERNAME} or more characters long`,
     })
-    .max(maxUsername, {
-      message: `Name must be ${maxUsername} or fewer characters long`,
+    .max(MAX_USERNAME, {
+      message: `Name must be ${MAX_USERNAME} or fewer characters long`,
     }),
 
   description: z
@@ -86,8 +86,8 @@ export const addTopicFormSchema = z.object({
     // .min(10, {
     //   message: "Description must be at least 10 characters.",
     // })
-    .max(maxDescription, {
-      message: `Description must not be longer than ${maxDescription} characters.`,
+    .max(MAX_DESCRIPTION, {
+      message: `Description must not be longer than ${MAX_DESCRIPTION} characters.`,
     })
     .optional(),
 
@@ -98,11 +98,11 @@ export const addTopicFormSchema = z.object({
 export const addFormValidationFormSchema = z.object({
   name: z
     .string()
-    .min(minUsername, {
-      message: `Name must be ${minUsername} or more characters long`,
+    .min(MIN_USERNAME, {
+      message: `Name must be ${MIN_USERNAME} or more characters long`,
     })
-    .max(maxUsername, {
-      message: `Name must be ${maxUsername} or fewer characters long`,
+    .max(MAX_USERNAME, {
+      message: `Name must be ${MAX_USERNAME} or fewer characters long`,
     }),
 
   slug: z.string(),
@@ -112,8 +112,8 @@ export const addFormValidationFormSchema = z.object({
     // .min(10, {
     //   message: "Description must be at least 10 characters.",
     // })
-    .max(maxDescription, {
-      message: `Description must not be longer than ${maxDescription} characters.`,
+    .max(MAX_DESCRIPTION, {
+      message: `Description must not be longer than ${MAX_DESCRIPTION} characters.`,
     })
     .optional(),
 

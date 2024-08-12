@@ -1,9 +1,9 @@
-export const minPassword = 4;
-export const maxPassword = 15;
+export const MIN_PASSWORD = 4;
+export const MAX_PASSWORD = 15;
 
-export const minUsername = 2;
-export const maxUsername = 20;
+export const MIN_USERNAME = 2;
+export const MAX_USERNAME = 20;
 
-export const toastDuration = 3500; // miliseconds
+export const TOAST_DURATION = 3500; // miliseconds
 
-export const maxDescription = 250;
+export const MAX_DESCRIPTION = 250;
