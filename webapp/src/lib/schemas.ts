@@ -5,7 +5,7 @@ import {
   MAX_USERNAME,
   MIN_PASSWORD,
   MIN_USERNAME,
-} from "./constants";
+} from "@/lib/constants";
 
 export const LoginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -14,11 +14,8 @@ export const LoginSchema = z.object({
   }),
 });
 
-export const addUserformSchema = z.object({
-  avatar: z.string({
-    required_error: "Please select an avatar.",
-  }),
-  username: z
+export const RegisterSchema = z.object({
+  name: z
     .string()
     .min(MIN_USERNAME, {
       message: `Username must be ${MIN_USERNAME} or more characters long`,
@@ -26,6 +23,7 @@ export const addUserformSchema = z.object({
     .max(MAX_USERNAME, {
       message: `Username must be ${MAX_USERNAME} or fewer characters long`,
     }),
+  email: z.string().email({ message: "Invalid email address" }),
   password: z
     .string()
     .min(MIN_PASSWORD, {
@@ -63,60 +61,4 @@ export const addUserformSchema = z.object({
         });
       }
     }),
-  email: z.string().email({ message: "Invalid email address" }),
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
-  role: z.string({
-    required_error: "Please select a role.",
-  }),
-});
-
-export const addTopicFormSchema = z.object({
-  name: z
-    .string()
-    .min(MIN_USERNAME, {
-      message: `Name must be ${MIN_USERNAME} or more characters long`,
-    })
-    .max(MAX_USERNAME, {
-      message: `Name must be ${MAX_USERNAME} or fewer characters long`,
-    }),
-
-  description: z
-    .string()
-    // .min(10, {
-    //   message: "Description must be at least 10 characters.",
-    // })
-    .max(MAX_DESCRIPTION, {
-      message: `Description must not be longer than ${MAX_DESCRIPTION} characters.`,
-    })
-    .optional(),
-
-  userId: z.string(),
-  userUpdateId: z.string(),
-});
-
-export const addFormValidationFormSchema = z.object({
-  name: z
-    .string()
-    .min(MIN_USERNAME, {
-      message: `Name must be ${MIN_USERNAME} or more characters long`,
-    })
-    .max(MAX_USERNAME, {
-      message: `Name must be ${MAX_USERNAME} or fewer characters long`,
-    }),
-
-  slug: z.string(),
-
-  description: z
-    .string()
-    // .min(10, {
-    //   message: "Description must be at least 10 characters.",
-    // })
-    .max(MAX_DESCRIPTION, {
-      message: `Description must not be longer than ${MAX_DESCRIPTION} characters.`,
-    })
-    .optional(),
-
-  userId: z.string(),
-  userUpdateId: z.string(),
 });
