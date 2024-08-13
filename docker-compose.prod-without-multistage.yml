@@ -14,6 +14,8 @@ services:
         DB_NAME: ${DB_NAME}
         DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=public"
         NEXT_PUBLIC_DEFAULT_REGISTER_PASSWORD: ${NEXT_PUBLIC_DEFAULT_REGISTER_PASSWORD}
+        AUTH_SECRET: ${AUTH_SECRET}
+        AUTH_TRUST_HOST: ${AUTH_TRUST_HOST}
     environment:
       TEST_VAR: ${TEST_VAR}
       SECRET_VAR: ${SECRET_VAR}
@@ -24,6 +26,8 @@ services:
       DB_NAME: ${DB_NAME}
       DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=public"
       NEXT_PUBLIC_DEFAULT_REGISTER_PASSWORD: ${NEXT_PUBLIC_DEFAULT_REGISTER_PASSWORD}
+      AUTH_SECRET: ${AUTH_SECRET}
+      AUTH_TRUST_HOST: ${AUTH_TRUST_HOST}
     restart: always
     ports:
       - 3000:3000

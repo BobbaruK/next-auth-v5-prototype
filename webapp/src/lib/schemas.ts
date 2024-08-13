@@ -1,11 +1,10 @@
-import { z } from "zod";
 import {
-  MAX_DESCRIPTION,
   MAX_PASSWORD,
   MAX_USERNAME,
   MIN_PASSWORD,
-  MIN_USERNAME,
+  MIN_USERNAME
 } from "@/lib/constants";
+import { z } from "zod";
 
 export const LoginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),

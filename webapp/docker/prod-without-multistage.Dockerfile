@@ -44,6 +44,10 @@ ARG DATABASE_URL
 ARG DATABASE_URL=${DATABASE_URL}
 ARG NEXT_PUBLIC_DEFAULT_REGISTER_PASSWORD
 ARG NEXT_PUBLIC_DEFAULT_REGISTER_PASSWORD=${NEXT_PUBLIC_DEFAULT_REGISTER_PASSWORD}
+ARG AUTH_SECRET
+ARG AUTH_SECRET=${AUTH_SECRET}
+ARG AUTH_TRUST_HOST
+ARG AUTH_TRUST_HOST=${AUTH_TRUST_HOST}
 
 # Next.js collects completely anonymous telemetry data about general usage. Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line to disable telemetry at build time
@@ -52,6 +56,9 @@ ARG NEXT_PUBLIC_DEFAULT_REGISTER_PASSWORD=${NEXT_PUBLIC_DEFAULT_REGISTER_PASSWOR
 # Note: Don't expose ports here, Compose will handle that for us
 
 # Build Next.js based on the preferred package manager
+
+RUN npx prisma generate
+
 RUN \
   if [ -f yarn.lock ]; then yarn build; \
   elif [ -f package-lock.json ]; then npm run build; \
@@ -59,7 +66,6 @@ RUN \
   else npm run build; \
   fi
 
-RUN npx prisma generate
 
 # Start Next.js based on the preferred package manager
 CMD \
