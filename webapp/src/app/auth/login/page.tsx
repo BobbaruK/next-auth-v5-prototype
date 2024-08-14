@@ -1,10 +1,12 @@
 import { LoginForm } from "@/components/auth/login-form";
-import React from "react";
+import React, { Suspense } from "react";
 
 const LoginPage = () => {
   return (
     <div className="container grid h-full place-items-center">
-      <LoginForm />
+      <Suspense>
+        <LoginForm />
+      </Suspense>
     </div>
   );
 };
