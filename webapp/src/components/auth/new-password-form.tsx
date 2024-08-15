@@ -1,6 +1,6 @@
 "use client";
 
-import { login } from "@/actions";
+import { newPassword } from "@/actions";
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import { FormError } from "@/components/auth/form-error";
 import { FormSuccess } from "@/components/auth/form-success";
@@ -14,39 +14,34 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { LoginSchema } from "@/lib/schemas";
+import { NewPasswordSchema } from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
-export const LoginForm = () => {
-  const searchParams = useSearchParams();
-  const urlError =
-    searchParams.get("error") === "OAuthAccountNotLinked"
-      ? "Email already in use with different provider"
-      : "";
+interface Props {
+  searchParamToken: string;
+}
 
+export const NewPasswordForm = ({ searchParamToken }: Props) => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<z.infer<typeof NewPasswordSchema>>({
+    resolver: zodResolver(NewPasswordSchema),
     defaultValues: {
-      email: "",
-      password: process.env.NEXT_PUBLIC_DEFAULT_REGISTER_PASSWORD || "",
+      password: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
     setError("");
     setSuccess("");
 
     startTransition(() => {
-      login(values).then((data) => {
+      newPassword(values, searchParamToken).then((data) => {
         setError(data?.error);
         setSuccess(data?.success);
       });
@@ -54,32 +49,13 @@ export const LoginForm = () => {
   };
   return (
     <CardWrapper
-      headerLabel={"Welcome back"}
-      backButtonLabel={"Don't have an account?"}
-      backButtonHref={"/auth/register/"}
-      showSocial
+      headerLabel={"Enter a new password"}
+      backButtonLabel={"Back to login"}
+      backButtonHref={"/auth/login/"}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="email"
-                      placeholder="john.doe@example.com"
-                      disabled={isPending}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="password"
@@ -94,23 +70,15 @@ export const LoginForm = () => {
                       disabled={isPending}
                     />
                   </FormControl>
-                  <Button
-                    size={"sm"}
-                    variant={"link"}
-                    asChild
-                    className="px-0 font-normal text-foreground"
-                  >
-                    <Link href={"/auth/reset"}>Forgot password?</Link>
-                  </Button>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <FormError message={error || urlError} />
+          <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isPending}>
-            Login
+            Reset password
           </Button>
         </form>
       </Form>
