@@ -4,7 +4,7 @@ import React, { Suspense } from "react";
 const LoginPage = () => {
   return (
     <div className="container grid h-full place-items-center">
-      <Suspense>
+      <Suspense fallback={<p>Loading...</p>}>
         <LoginForm />
       </Suspense>
     </div>

@@ -1,6 +1,7 @@
 "use server";
 
-import { login } from "./login";
-import { register } from "./register";
+import { login } from "@/actions/login";
+import { newVerification } from "@/actions/new-verification";
+import { register } from "@/actions/register";
 
-export { login, register };
+export { login, register, newVerification };
