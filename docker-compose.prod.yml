@@ -21,6 +21,7 @@ services:
         GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
         GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
         NEXTAUTH_URL: http://localhost:3000
+        RESEND_API_KEY: ${RESEND_API_KEY}
     environment:
       TEST_VAR: ${TEST_VAR}
       SECRET_VAR: ${SECRET_VAR}
@@ -38,6 +39,7 @@ services:
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
       NEXTAUTH_URL: http://localhost:3000
+      RESEND_API_KEY: ${RESEND_API_KEY}
     restart: always
     ports:
       - 3000:3000
