@@ -8,22 +8,23 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 
-export const NewVerificationForm = () => {
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+interface Props {
+  searchParamToken: string;
+}
 
+export const NewVerificationForm = ({ searchParamToken }: Props) => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
   const onSubmit = useCallback(() => {
     if (success || error) return;
 
-    if (!token) {
+    if (!searchParamToken) {
       setError("Missing token!");
       return;
     }
 
-    newVerification(token)
+    newVerification(searchParamToken)
       .then((data) => {
         setSuccess(data.success);
         setError(data.error);
@@ -31,7 +32,7 @@ export const NewVerificationForm = () => {
       .catch(() => {
         setError("Something went wrong!");
       });
-  }, [token, success, error]);
+  }, [searchParamToken, success, error]);
 
   useEffect(() => {
     onSubmit();

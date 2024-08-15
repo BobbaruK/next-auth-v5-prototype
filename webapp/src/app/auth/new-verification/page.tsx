@@ -1,12 +1,14 @@
 import { NewVerificationForm } from "@/components/auth/new-verification-form";
-import { Suspense } from "react";
+interface Props {
+  searchParams: {
+    token: string;
+  };
+}
 
-const NewVerificationPage = () => {
+const NewVerificationPage = ({ searchParams: { token } }: Props) => {
   return (
     <div className="container grid h-full place-items-center">
-      <Suspense fallback={<p>Loading...</p>}>
-        <NewVerificationForm />
-      </Suspense>
+      <NewVerificationForm searchParamToken={token} />
     </div>
   );
 };

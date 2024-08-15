@@ -1,12 +1,15 @@
 import { LoginForm } from "@/components/auth/login-form";
-import React, { Suspense } from "react";
 
-const LoginPage = () => {
+interface Props {
+  searchParams: {
+    error: string;
+  };
+}
+
+const LoginPage = ({ searchParams: { error } }: Props) => {
   return (
     <div className="container grid h-full place-items-center">
-      <Suspense fallback={<p>Loading...</p>}>
-        <LoginForm />
-      </Suspense>
+      <LoginForm searchParamError={error} />
     </div>
   );
 };

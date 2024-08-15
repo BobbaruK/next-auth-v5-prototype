@@ -17,15 +17,17 @@ import { Input } from "@/components/ui/input";
 import { LoginSchema } from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
-export const LoginForm = () => {
-  const searchParams = useSearchParams();
+interface Props {
+  searchParamError: string;
+}
+
+export const LoginForm = ({ searchParamError }: Props) => {
   const urlError =
-    searchParams.get("error") === "OAuthAccountNotLinked"
+    searchParamError === "OAuthAccountNotLinked"
       ? "Email already in use with different provider"
       : "";
 
