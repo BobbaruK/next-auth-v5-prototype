@@ -7,6 +7,11 @@ import {
   getPasswordResetTokenByToken,
   getPasswordResetTokenByEmail,
 } from "@/lib/data/password-reset-token";
+import {
+  getTwoFactorTokenByToken,
+  getTwoFactorTokenByEmail,
+} from "@/lib/data/two-factor-token";
+import { getTwoFactorConfirmatioByUserId } from "@/lib/data/two-factor-confirmation";
 
 export {
   getUserByEmail,
@@ -15,4 +20,7 @@ export {
   getVerificationTokenByEmail,
   getPasswordResetTokenByToken,
   getPasswordResetTokenByEmail,
+  getTwoFactorTokenByToken,
+  getTwoFactorTokenByEmail,
+  getTwoFactorConfirmatioByUserId,
 };
