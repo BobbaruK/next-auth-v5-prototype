@@ -23,6 +23,7 @@ declare module "next-auth" {
   }
 }
 
+// TODO: document this according to auth js documentation
 export const { auth, handlers, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/auth/login",
