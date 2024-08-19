@@ -1,3 +1,5 @@
+"use server";
+
 import { getUserByEmail } from "@/lib/data";
 import db from "@/lib/db";
 import { sendVerificationEmail } from "@/lib/mail";

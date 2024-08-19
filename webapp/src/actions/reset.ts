@@ -1,3 +1,5 @@
+"use server";
+
 import { ResetSchema } from "@/lib/schemas";
 import { getUserByEmail } from "@/lib/data";
 import z from "zod";

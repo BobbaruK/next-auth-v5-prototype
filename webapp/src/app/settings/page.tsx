@@ -1,4 +1,4 @@
-import { auth, signOut } from "@/lib/auth";
+import { auth, signOut } from "@/auth";
 import React from "react";
 
 const SettingsPage = async () => {

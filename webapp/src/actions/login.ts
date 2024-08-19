@@ -1,4 +1,6 @@
-import { signIn } from "@/lib/auth";
+"use server";
+
+import { signIn } from "@/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/lib/constants";
 import {
   getTwoFactorConfirmatioByUserId,

@@ -1,3 +1,5 @@
+"use server";
+
 import { getPasswordResetTokenByToken, getUserByEmail } from "@/lib/data";
 import { NewPasswordSchema } from "@/lib/schemas";
 import z from "zod";

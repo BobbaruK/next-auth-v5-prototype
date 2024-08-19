@@ -1,4 +1,4 @@
-import authConfig from "@/lib/auth.config"; // this works on the edge
+import authConfig from "@/auth.config"; // this works on the edge
 import {
   DEFAULT_LOGIN_REDIRECT,
   publicRoutes,
