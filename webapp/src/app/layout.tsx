@@ -6,6 +6,7 @@ import { auth } from "@/auth";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { SessionProvider } from "next-auth/react";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,6 +39,7 @@ export default async function RootLayout({
                 <div className="container">footer</div>
               </footer>
             </div>
+            <Toaster />
           </ThemeProvider>
         </SessionProvider>
       </body>
