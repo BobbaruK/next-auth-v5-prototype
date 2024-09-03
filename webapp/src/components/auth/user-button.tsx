@@ -35,6 +35,13 @@ export const UserButton = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">
+        {user && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
+          </>
+        )}
+        <DropdownMenuSeparator />
         <DropdownMenuLabel>Theme</DropdownMenuLabel>
         <DropdownMenuRadioGroup value={theTheme} onValueChange={setTheTheme}>
           <DropdownMenuRadioItem
@@ -54,11 +61,13 @@ export const UserButton = () => {
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
         <DropdownMenuSeparator />
-        <LogoutButton>
-          <DropdownMenuItem className="flex items-center justify-start gap-4 p-2">
-            <IoExitOutline /> Logout
-          </DropdownMenuItem>
-        </LogoutButton>
+        {user && (
+          <LogoutButton>
+            <DropdownMenuItem className="flex items-center justify-start gap-3 p-2">
+              <IoExitOutline /> Logout
+            </DropdownMenuItem>
+          </LogoutButton>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

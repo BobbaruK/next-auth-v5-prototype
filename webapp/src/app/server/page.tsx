@@ -3,6 +3,7 @@ import { currentUser } from "@/lib/auth";
 
 const serverPage = async () => {
   const user = await currentUser();
+
   return (
     <div className="container">
       <UserInfo user={user} label={"Server Component"} />

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { UserRole } from "@prisma/client";
 import { useToast } from "@/components/ui/use-toast";
-import { admin } from "@/actions/admin";
+import { admin } from "@/actions";
 
 const AdminPage = () => {
   const { toast } = useToast();

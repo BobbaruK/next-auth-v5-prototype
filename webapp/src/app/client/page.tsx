@@ -7,9 +7,11 @@ const ClientPage = () => {
   const user = useCurrentUser();
 
   return (
-    <div className="container">
-      <UserInfo user={user} label={"Client Component"} />
-    </div>
+    <>
+      <div className="container">
+        <UserInfo user={user} label={"Client Component"} />
+      </div>
+    </>
   );
 };
 

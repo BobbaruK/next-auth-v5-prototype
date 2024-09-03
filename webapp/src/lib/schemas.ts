@@ -3,8 +3,42 @@ import {
   MAX_USERNAME,
   MIN_PASSWORD,
   MIN_USERNAME,
+  userRoles,
 } from "@/lib/constants";
 import { z } from "zod";
+
+const passwordRefine = (password: string, ctx: z.RefinementCtx) => {
+  const containsUppercase = (ch: string) => /[A-Z]/.test(ch);
+  const containsLowercase = (ch: string) => /[a-z]/.test(ch);
+  const containsSpecialChar = (ch: string) =>
+    /[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~ ]/.test(ch);
+
+  let countOfUpperCase = 0,
+    countOfLowerCase = 0,
+    countOfNumbers = 0,
+    countOfSpecialChar = 0;
+
+  for (let i = 0; i < password.length; i++) {
+    let ch = password.charAt(i);
+
+    if (!isNaN(+ch)) countOfNumbers++;
+    else if (containsUppercase(ch)) countOfUpperCase++;
+    else if (containsLowercase(ch)) countOfLowerCase++;
+    else if (containsSpecialChar(ch)) countOfSpecialChar++;
+  }
+
+  if (
+    countOfLowerCase < 1 ||
+    countOfUpperCase < 1 ||
+    countOfSpecialChar < 1 ||
+    countOfNumbers < 1
+  ) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "Password does not meet complexity requirements",
+    });
+  }
+};
 
 export const LoginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -32,38 +66,7 @@ export const RegisterSchema = z.object({
     .max(MAX_PASSWORD, {
       message: `Password must be ${MAX_PASSWORD} or fewer characters long`,
     })
-    .superRefine((password, ctx) => {
-      const containsUppercase = (ch: string) => /[A-Z]/.test(ch);
-      const containsLowercase = (ch: string) => /[a-z]/.test(ch);
-      const containsSpecialChar = (ch: string) =>
-        /[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~ ]/.test(ch);
-
-      let countOfUpperCase = 0,
-        countOfLowerCase = 0,
-        countOfNumbers = 0,
-        countOfSpecialChar = 0;
-
-      for (let i = 0; i < password.length; i++) {
-        let ch = password.charAt(i);
-
-        if (!isNaN(+ch)) countOfNumbers++;
-        else if (containsUppercase(ch)) countOfUpperCase++;
-        else if (containsLowercase(ch)) countOfLowerCase++;
-        else if (containsSpecialChar(ch)) countOfSpecialChar++;
-      }
-
-      if (
-        countOfLowerCase < 1 ||
-        countOfUpperCase < 1 ||
-        countOfSpecialChar < 1 ||
-        countOfNumbers < 1
-      ) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Password does not meet complexity requirements",
-        });
-      }
-    }),
+    .superRefine((password, ctx) => passwordRefine(password, ctx)),
 });
 
 export const ResetSchema = z.object({
@@ -79,36 +82,57 @@ export const NewPasswordSchema = z.object({
     .max(MAX_PASSWORD, {
       message: `Password must be ${MAX_PASSWORD} or fewer characters long`,
     })
-    .superRefine((password, ctx) => {
-      const containsUppercase = (ch: string) => /[A-Z]/.test(ch);
-      const containsLowercase = (ch: string) => /[a-z]/.test(ch);
-      const containsSpecialChar = (ch: string) =>
-        /[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~ ]/.test(ch);
-
-      let countOfUpperCase = 0,
-        countOfLowerCase = 0,
-        countOfNumbers = 0,
-        countOfSpecialChar = 0;
-
-      for (let i = 0; i < password.length; i++) {
-        let ch = password.charAt(i);
-
-        if (!isNaN(+ch)) countOfNumbers++;
-        else if (containsUppercase(ch)) countOfUpperCase++;
-        else if (containsLowercase(ch)) countOfLowerCase++;
-        else if (containsSpecialChar(ch)) countOfSpecialChar++;
-      }
-
-      if (
-        countOfLowerCase < 1 ||
-        countOfUpperCase < 1 ||
-        countOfSpecialChar < 1 ||
-        countOfNumbers < 1
-      ) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Password does not meet complexity requirements",
-        });
-      }
-    }),
+    .superRefine((password, ctx) => passwordRefine(password, ctx)),
 });
+
+export const SettingsSchema = z
+  .object({
+    name: z.optional(z.string()),
+    isTwoFactorEnabled: z.optional(z.boolean()),
+    role: z.enum(userRoles()),
+    email: z.optional(z.string().email()),
+    password: z.optional(
+      z
+        .string()
+        .min(MIN_PASSWORD, {
+          message: `Password must be ${MIN_PASSWORD} or more characters long`,
+        })
+        .max(MAX_PASSWORD, {
+          message: `Password must be ${MAX_PASSWORD} or fewer characters long`,
+        })
+        .superRefine((password, ctx) => passwordRefine(password, ctx)),
+    ),
+    newPassword: z.optional(
+      z
+        .string()
+        .min(MIN_PASSWORD, {
+          message: `Password must be ${MIN_PASSWORD} or more characters long`,
+        })
+        .max(MAX_PASSWORD, {
+          message: `Password must be ${MAX_PASSWORD} or fewer characters long`,
+        })
+        .superRefine((password, ctx) => passwordRefine(password, ctx)),
+    ),
+  })
+  .refine(
+    (data) => {
+      if (data.password && !data.newPassword) return false;
+
+      return true;
+    },
+    {
+      message: "New password is required",
+      path: ["newPassword"],
+    },
+  )
+  .refine(
+    (data) => {
+      if (data.newPassword && !data.password) return false;
+
+      return true;
+    },
+    {
+      message: "Password is required",
+      path: ["password"],
+    },
+  );

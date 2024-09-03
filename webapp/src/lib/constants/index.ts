@@ -11,6 +11,7 @@ import {
   DEFAULT_LOGIN_REDIRECT,
   publicRoutes,
 } from "@/lib/constants/routes";
+import { userRoles } from "@/lib/constants/user-roles";
 
 export {
   apiAuthPrefix,
@@ -22,4 +23,5 @@ export {
   MIN_USERNAME,
   publicRoutes,
   TOAST_DURATION,
+  userRoles,
 };

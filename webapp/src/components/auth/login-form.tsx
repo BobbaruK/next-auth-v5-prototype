@@ -22,7 +22,7 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 
 interface Props {
-  searchParamError: string;
+  searchParamError?: string;
 }
 
 export const LoginForm = ({ searchParamError }: Props) => {
@@ -52,12 +52,13 @@ export const LoginForm = ({ searchParamError }: Props) => {
     startTransition(() => {
       login(values)
         .then((data) => {
+          console.log(data);
           // setError(data?.error);
           // setSuccess(data?.success);
 
           if (data?.error) {
             form.reset();
-            setError(data.error);
+            setError((prev) => (prev = data.error));
           }
 
           if (data?.success) {
@@ -67,6 +68,22 @@ export const LoginForm = ({ searchParamError }: Props) => {
 
           if (data?.twoFactor) {
             setShowTwoFactor(true);
+          }
+
+          // if succesfuly log in data is undefined
+          if (!data) {
+            /**
+             * This is a workaround.
+             *
+             * For some reason when I login or logout from a server function
+             * the SessionProvider is not updating. Works fine if I logout or
+             * login from client function like: signOut from "next-auth/react".
+             *
+             * Hopefully auth.js will get out of beta soon(today is 3th of Sept 2024).
+             *
+             */
+            // TODO: check out auth js for further documentation
+            setTimeout(() => location.reload(), 300);
           }
         })
         .catch(() => setError("Something went wrong!"));
