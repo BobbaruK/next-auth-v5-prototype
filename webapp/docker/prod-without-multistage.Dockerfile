@@ -58,6 +58,8 @@ ARG GOOGLE_CLIENT_SECRET
 ARG GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
 ARG RESEND_API_KEY
 ARG RESEND_API_KEY=${RESEND_API_KEY}
+ARG NEXT_PUBLIC_APP_URL
+ARG NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
 
 # Next.js collects completely anonymous telemetry data about general usage. Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line to disable telemetry at build time
