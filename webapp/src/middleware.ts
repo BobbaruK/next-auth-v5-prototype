@@ -34,18 +34,26 @@ export default auth((req) => {
   }
 
   if (isLoggedIn === false && !isPublicRoute) {
+    let callbackUrl = nextUrl.pathname;
+
+    if (nextUrl.search) {
+      callbackUrl += nextUrl.search;
+    }
+
+    const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+
     /**
-     * For some reason when i go to a path deeper than 1 (ex: /auth/something - wich is 
+     * For some reason when i go to a path deeper than 1 (ex: /auth/something - wich is
      * not an Auth Route or a Public Route) it keeps adding /auth like: /auth/auth/auth/auth/login
      * and continues to redirect in a endless loop to auth/login on top of already added /auth
-     * 
+     *
      * TODO: keep an eye on this and be sure it is not an issue when deploy
      */
     const url = new URL("auth/login", nextUrl);
     // console.log("url: ", url.href);
     // console.log("================================");
 
-    const link = `${url.protocol}//${url.host}/auth/login`;
+    const link = `${url.protocol}//${url.host}/auth/login?callbackUrl=${encodedCallbackUrl}`;
 
     // console.log("link", link);
 

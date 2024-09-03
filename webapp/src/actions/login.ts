@@ -18,7 +18,7 @@ import { AuthError } from "next-auth";
 import z from "zod";
 
 /**
- * **{@linkcode login} server function** 
+ * **{@linkcode login} server function**
  *
  * 1. Safeparse the values
  * 2. If it is not success return `{ error: "Invalid fields!" }`
@@ -50,7 +50,10 @@ import z from "zod";
  * @yields Returns a `Promise` that returns an `Object` with success and error messages and if 2FA is active
  *
  */
-export const login = async (values: z.infer<typeof LoginSchema>) => {
+export const login = async (
+  values: z.infer<typeof LoginSchema>,
+  callbackUrl?: string,
+) => {
   // 1
   const validatedFields = LoginSchema.safeParse(values);
 
@@ -146,7 +149,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
+      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
   } catch (error) {
     if (error instanceof AuthError) {

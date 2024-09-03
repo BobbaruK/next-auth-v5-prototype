@@ -23,9 +23,10 @@ import z from "zod";
 
 interface Props {
   searchParamError?: string;
+  callbackUrl?: string;
 }
 
-export const LoginForm = ({ searchParamError }: Props) => {
+export const LoginForm = ({ searchParamError, callbackUrl }: Props) => {
   const urlError =
     searchParamError === "OAuthAccountNotLinked"
       ? "Email already in use with different provider"
@@ -50,7 +51,7 @@ export const LoginForm = ({ searchParamError }: Props) => {
     setSuccess("");
 
     startTransition(() => {
-      login(values)
+      login(values, callbackUrl)
         .then((data) => {
           console.log(data);
           // setError(data?.error);
