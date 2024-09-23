@@ -1,5 +1,6 @@
 "use client";
 
+import { logout } from "@/actions";
 import { revalidate } from "@/actions/reavalidate";
 import { settings } from "@/actions/settings";
 import { FormError } from "@/components/auth/form-error";
@@ -67,6 +68,8 @@ const SettingsPage = () => {
             update();
             setSuccess(data.success);
           }
+
+          if (data.logout) setTimeout(logout, 700);
 
           revalidate();
         })
@@ -201,12 +204,12 @@ const SettingsPage = () => {
                           </FormDescription>
                         </div>
                         <FormControl>
-                          <Switch 
+                          <Switch
                             disabled={isPending}
                             checked={field.value}
                             onCheckedChange={field.onChange}
                           />
-                        </FormControl >
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
