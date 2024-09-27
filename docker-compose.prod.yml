@@ -1,6 +1,6 @@
 services:
   webapp-prod:
-    container_name: webapp-prod
+    container_name: webapp-auth-prod
     build:
       context: ./webapp
       dockerfile: /docker/prod.Dockerfile
@@ -48,7 +48,7 @@ services:
 
   db:
     image: postgres:16-alpine
-    container_name: postgres
+    container_name: postgres-auth
     restart: always
     environment:
       POSTGRES_USER: ${DB_USER}

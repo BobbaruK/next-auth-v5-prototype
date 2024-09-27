@@ -1,6 +1,6 @@
 services:
   webapp-dev:
-    container_name: webapp-dev
+    container_name: webapp-auth-dev
     build:
       context: ./webapp
       dockerfile: /docker/dev.Dockerfile
@@ -38,12 +38,15 @@ services:
           target: /app/src
           ignore:
             - node_modules/
+        - action: sync
+          path: ./webapp/tailwind.config.ts
+          target: /app/tailwind.config.ts
         - action: rebuild
           path: package.json
 
   db:
     image: postgres:16-alpine
-    container_name: postgres
+    container_name: postgres-auth
     restart: always
     environment:
       POSTGRES_USER: ${DB_USER}

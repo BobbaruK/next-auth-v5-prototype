@@ -9,7 +9,7 @@ export default async function Home() {
     <div className="container flex h-full flex-col items-center justify-center">
       <div className="space-y-6 text-center">
         <h1 className="flex items-center gap-4 text-6xl font-semibold text-foreground drop-shadow-md">
-          Welcome to designs and links
+          Welcome to Auth
         </h1>
         {!user && (
           <div>
