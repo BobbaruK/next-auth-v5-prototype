@@ -9,8 +9,6 @@ interface Props {
 }
 
 export const LogoutButton = ({ children }: Props) => {
-  const onClick = () => logout();
-
   return (
     <span onClick={() => signOut()} className="cursor-pointer">
       {children}
