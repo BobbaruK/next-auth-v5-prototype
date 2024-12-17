@@ -1,12 +1,11 @@
 "use client";
 
-import { FormSuccess } from "@/components/auth/form-success";
-import { RoleGate } from "@/components/auth/role-gate";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { UserRole } from "@prisma/client";
 import { useToast } from "@/components/ui/use-toast";
-import { admin } from "@/actions";
+import { admin } from "@/features/auth/actions";
+import { FormSuccess, RoleGate } from "@/features/auth/components";
+import { UserRole } from "@prisma/client";
 
 const AdminPage = () => {
   const { toast } = useToast();

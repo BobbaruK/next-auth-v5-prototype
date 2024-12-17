@@ -4,7 +4,7 @@ import {
   publicRoutes,
   authRoutes,
   apiAuthPrefix,
-} from "@/lib/constants";
+} from "@/constants";
 import NextAuth from "next-auth";
 
 const { auth } = NextAuth(authConfig);

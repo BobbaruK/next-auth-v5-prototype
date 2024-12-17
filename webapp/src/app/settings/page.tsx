@@ -1,10 +1,6 @@
 "use client";
 
-import { logout } from "@/actions";
 import { revalidate } from "@/actions/reavalidate";
-import { settings } from "@/actions/settings";
-import { FormError } from "@/components/auth/form-error";
-import { FormSuccess } from "@/components/auth/form-success";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
@@ -25,9 +21,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { userRoles } from "@/lib/constants";
-import { SettingsSchema } from "@/lib/schemas";
+import { userRoles } from "@/constants";
+import { logout } from "@/features/auth/actions";
+import { FormError, FormSuccess } from "@/features/auth/components";
+import { useCurrentUser } from "@/features/auth/hooks";
+import { settings } from "@/features/settings/actions";
+import { SettingsSchema } from "@/features/settings/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { useState, useTransition } from "react";

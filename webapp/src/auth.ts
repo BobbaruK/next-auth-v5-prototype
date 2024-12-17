@@ -4,7 +4,7 @@ import {
   getAccountByUserId,
   getTwoFactorConfirmatioByUserId,
   getUserById,
-} from "@/lib/data";
+} from "@/features/auth/data";
 import db from "@/lib/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { UserRole } from "@prisma/client";

@@ -1,6 +1,6 @@
-import { LoginButton } from "@/components/auth/login-button";
 import { Button } from "@/components/ui/button";
-import { currentUser } from "@/lib/auth";
+import { LoginButton } from "@/features/auth/components";
+import { currentUser } from "@/features/auth/lib/auth";
 
 export default async function Home() {
   const user = await currentUser();

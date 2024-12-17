@@ -1,5 +1,4 @@
-import { NewPasswordForm } from "@/components/auth/new-password-form";
-import React from "react";
+import { NewPasswordForm } from "@/features/auth/components";
 
 interface Props {
   searchParams: {
